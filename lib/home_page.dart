@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shoping_app/global_variable.dart';
+import 'package:shoping_app/product_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -88,7 +90,19 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
               ),
-            )
+            ),
+            Expanded(
+                child: ListView.builder(
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                final product = products[index];
+                return ProductList(
+                  titel: product['title'] as String,
+                  imageUrl: product['imageUrl'] as String,
+                  price: product['price'] as double,
+                );
+              },
+            )),
           ],
         ),
       ),
