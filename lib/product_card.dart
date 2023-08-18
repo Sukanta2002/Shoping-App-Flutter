@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ProductList extends StatelessWidget {
+class ProductCard extends StatelessWidget {
   final String titel;
   final double price;
   final String imageUrl;
   final Color backgroundColour;
-  const ProductList(
+  const ProductCard(
       {super.key,
       required this.titel,
       required this.price,
