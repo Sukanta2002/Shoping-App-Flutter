@@ -7,6 +7,13 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Cart',
+          style: Theme.of(context).appBarTheme.titleTextStyle,
+        ),
+      ),
       body: ListView.builder(
         itemCount: carts.length,
         itemBuilder: (context, index) {
