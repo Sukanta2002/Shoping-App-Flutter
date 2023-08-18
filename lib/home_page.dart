@@ -100,6 +100,9 @@ class _HomePageState extends State<HomePage> {
                   titel: product['title'] as String,
                   imageUrl: product['imageUrl'] as String,
                   price: product['price'] as double,
+                  backgroundColour: index.isEven
+                      ? const Color.fromRGBO(216, 240, 253, 1)
+                      : const Color.fromRGBO(245, 247, 249, 1),
                 );
               },
             )),
