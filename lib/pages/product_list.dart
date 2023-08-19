@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoping_app/global_variable.dart';
-import 'package:shoping_app/product_card.dart';
-import 'package:shoping_app/product_detail_page.dart';
+import 'package:shoping_app/widgets/product_card.dart';
+import 'package:shoping_app/pages/product_detail_page.dart';
 
 class ProductList extends StatefulWidget {
   const ProductList({super.key});
@@ -92,29 +92,63 @@ class _ProductListState extends State<ProductList> {
             ),
           ),
           Expanded(
-              child: ListView.builder(
-            itemCount: products.length,
-            itemBuilder: (context, index) {
-              final product = products[index];
-              return GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) {
-                      return ProductDetailPage(product: product);
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                if (constraints.maxWidth > 1080) {
+                  return GridView.builder(
+                    itemCount: products.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: 1.75, crossAxisCount: 2),
+                    itemBuilder: (context, index) {
+                      final product = products[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) {
+                              return ProductDetailPage(product: product);
+                            },
+                          ));
+                        },
+                        child: ProductCard(
+                          titel: product['title'] as String,
+                          imageUrl: product['imageUrl'] as String,
+                          price: product['price'] as double,
+                          backgroundColour: index.isEven
+                              ? const Color.fromRGBO(216, 240, 253, 1)
+                              : const Color.fromRGBO(245, 247, 249, 1),
+                        ),
+                      );
                     },
-                  ));
-                },
-                child: ProductCard(
-                  titel: product['title'] as String,
-                  imageUrl: product['imageUrl'] as String,
-                  price: product['price'] as double,
-                  backgroundColour: index.isEven
-                      ? const Color.fromRGBO(216, 240, 253, 1)
-                      : const Color.fromRGBO(245, 247, 249, 1),
-                ),
-              );
-            },
-          )),
+                  );
+                } else {
+                  return ListView.builder(
+                    itemCount: products.length,
+                    itemBuilder: (context, index) {
+                      final product = products[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) {
+                              return ProductDetailPage(product: product);
+                            },
+                          ));
+                        },
+                        child: ProductCard(
+                          titel: product['title'] as String,
+                          imageUrl: product['imageUrl'] as String,
+                          price: product['price'] as double,
+                          backgroundColour: index.isEven
+                              ? const Color.fromRGBO(216, 240, 253, 1)
+                              : const Color.fromRGBO(245, 247, 249, 1),
+                        ),
+                      );
+                    },
+                  );
+                }
+              },
+            ),
+          ),
         ],
       ),
     );
